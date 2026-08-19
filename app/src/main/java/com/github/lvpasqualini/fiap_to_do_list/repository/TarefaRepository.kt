@@ -1,7 +1,8 @@
 package com.github.lvpasqualini.fiap_to_do_list.repository
 
-import carreiras.com.github.todolist.data.Tarefa
-import carreiras.com.github.todolist.data.TarefaDao
+
+import com.github.lvpasqualini.fiap_to_do_list.data.Tarefa
+import com.github.lvpasqualini.fiap_to_do_list.data.TarefaDao
 import kotlinx.coroutines.flow.Flow
 
 class TarefaRepository(private val dao: TarefaDao) {

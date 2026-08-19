@@ -6,9 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -39,9 +37,9 @@ class TarefaDaoTest {
         dao.inserir(tarefa)
 
         val tarefas = dao.listarTodas().first()
-        assertEquals(1, tarefas.size)
-        assertEquals("Estudar Room", tarefas[0].titulo)
-        assertFalse(tarefas[0].concluida)
+        Assert.assertEquals(1, tarefas.size)
+        Assert.assertEquals("Estudar Room", tarefas[0].titulo)
+        Assert.assertFalse(tarefas[0].concluida)
     }
 
     @Test
@@ -52,7 +50,7 @@ class TarefaDaoTest {
         dao.atualizar(inserida.copy(concluida = true))
 
         val atualizada = dao.listarTodas().first().first()
-        assertTrue(atualizada.concluida)
+        Assert.assertTrue(atualizada.concluida)
     }
 
     @Test
@@ -63,6 +61,6 @@ class TarefaDaoTest {
         dao.deletar(inserida)
 
         val tarefas = dao.listarTodas().first()
-        assertTrue(tarefas.isEmpty())
+        Assert.assertTrue(tarefas.isEmpty())
     }
 }
