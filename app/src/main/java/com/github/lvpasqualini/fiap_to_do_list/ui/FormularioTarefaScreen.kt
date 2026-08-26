@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.lvpasqualini.fiap_to_do_list.data.Tarefa
 import com.github.lvpasqualini.fiap_to_do_list.viewmodel.TarefaViewModel
-import kotlin.collections.find
+
 
 
 @Composable
