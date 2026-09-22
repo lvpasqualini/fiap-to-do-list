@@ -25,6 +25,10 @@ A tela `ListaTarefasScreen` utiliza uma `LazyColumn` para renderizar as tarefas 
 ### Como `FormularioTarefaScreen` diferencia cadastro e edição
 A tela `FormularioTarefaScreen` atende aos dois cenários utilizando a mesma interface. A diferenciação é feita através da presença (ou ausência) de um identificador (`ID` da tarefa) passado como argumento de navegação. Se um ID válido for fornecido, a ViewModel busca a tarefa e o formulário é pré-preenchido com os dados existentes (modo de edição). Caso contrário, o formulário é iniciado vazio (modo de criação).
 
+### Funcionamento das Ações Cancelar e Excluir
+* **Ação Cancelar**: Na tela de formulário (`FormularioTarefaScreen`), o botão "Cancelar" (assim como a seta de voltar na TopAppBar) descarta quaisquer alterações em andamento e retorna à tela anterior (`ListaTarefasScreen`) sem salvar.
+* **Ação Excluir**: Disponível tanto diretamente na lista de tarefas (`ListaTarefasScreen`) quanto na TopAppBar e no rodapé do formulário quando em modo de edição. Para maior segurança do usuário, a exclusão exibe um diálogo de confirmação (`AlertDialog`). Ao confirmar, a `ViewModel` dispara a remoção da tarefa no banco de dados através do `TarefaRepository`.
+
 ### Rotas em `AppNavigation` e passagem do ID da tarefa
 O componente `AppNavigation` centraliza o roteamento utilizando o Navigation Compose. Estão configuradas duas rotas principais:
 1. Rota principal para a lista de tarefas (ex: `"lista"`).

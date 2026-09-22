@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,9 +26,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
@@ -35,11 +40,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.lvpasqualini.fiap_to_do_list.viewmodel.TarefaViewModel
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import com.github.lvpasqualini.fiap_to_do_list.util.formatarDataHora
 import com.github.lvpasqualini.fiap_to_do_list.data.Tarefa
+import com.github.lvpasqualini.fiap_to_do_list.viewmodel.TarefaViewModel
 
 @Composable
 fun ListaTarefasScreen(
@@ -69,6 +71,31 @@ fun ListaTarefasContent(
     onCheckedChange: (Tarefa, Boolean) -> Unit,
     onDeletar: (Tarefa) -> Unit
 ) {
+    var tarefaParaDeletar by remember { mutableStateOf<Tarefa?>(null) }
+
+    if (tarefaParaDeletar != null) {
+        AlertDialog(
+            onDismissRequest = { tarefaParaDeletar = null },
+            title = { Text("Excluir Tarefa") },
+            text = { Text("Tem certeza de que deseja excluir a tarefa \"${tarefaParaDeletar?.titulo}\"?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        tarefaParaDeletar?.let { onDeletar(it) }
+                        tarefaParaDeletar = null
+                    }
+                ) {
+                    Text("Excluir", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { tarefaParaDeletar = null }) {
+                    Text("Cancelar")
+                }
+            }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Minhas Tarefas") })
@@ -101,7 +128,7 @@ fun ListaTarefasContent(
                         tarefa = tarefa,
                         onCheckedChange = { concluida -> onCheckedChange(tarefa, concluida) },
                         onEditar = { onEditarTarefa(tarefa.id) },
-                        onDeletar = { onDeletar(tarefa) }
+                        onDeletar = { tarefaParaDeletar = tarefa }
                     )
                 }
             }
