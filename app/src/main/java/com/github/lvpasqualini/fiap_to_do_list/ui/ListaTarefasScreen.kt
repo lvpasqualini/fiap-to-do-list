@@ -35,8 +35,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import carreiras.com.github.todolist.data.Tarefa
-import carreiras.com.github.todolist.viewmodel.TarefaViewModel
+import com.github.lvpasqualini.fiap_to_do_list.viewmodel.TarefaViewModel
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import com.github.lvpasqualini.fiap_to_do_list.util.formatarDataHora
+import com.github.lvpasqualini.fiap_to_do_list.data.Tarefa
 
 @Composable
 fun ListaTarefasScreen(

@@ -3,6 +3,7 @@ package com.github.lvpasqualini.fiap_to_do_list.data
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -62,5 +63,19 @@ class TarefaDaoTest {
 
         val tarefas = dao.listarTodas().first()
         Assert.assertTrue(tarefas.isEmpty())
+    }
+
+    @Test
+    fun tarefasComPrazoAparecemAntesDeAvulsasEOrdenadasPorProximidade() = runTest {
+        val agora = System.currentTimeMillis()
+        dao.inserir(Tarefa(titulo = "Avulsa", descricao = ""))
+        dao.inserir(Tarefa(titulo = "Prazo distante", descricao = "", dataHora = agora + 100_000))
+        dao.inserir(Tarefa(titulo = "Prazo proximo", descricao = "", dataHora = agora + 10_000))
+
+        val tarefas = dao.listarTodas().first()
+
+        assertEquals("Prazo proximo", tarefas[0].titulo)
+        assertEquals("Prazo distante", tarefas[1].titulo)
+        assertEquals("Avulsa", tarefas[2].titulo)
     }
 }

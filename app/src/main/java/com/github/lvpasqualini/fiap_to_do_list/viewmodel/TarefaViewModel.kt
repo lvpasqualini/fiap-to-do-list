@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import carreiras.com.github.todolist.data.Tarefa
-import carreiras.com.github.todolist.data.TarefaDatabase
-import carreiras.com.github.todolist.repository.TarefaRepository
+import com.github.lvpasqualini.fiap_to_do_list.data.Tarefa
+import com.github.lvpasqualini.fiap_to_do_list.data.TarefaDatabase
+import com.github.lvpasqualini.fiap_to_do_list.repository.TarefaRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
